@@ -23,6 +23,7 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [value, setValue] = useState("");
   const [editValue, setEditValue] = useState("");
+
   const handleDeleteTask = (id: number) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     toast.success("Tarefa excluida com sucesso", {});
@@ -45,17 +46,34 @@ export default function Home() {
   };
 
   const handleAddTask = () => {
-    if (!value)
-      return toast.error("De um nome para sua tarefa", {
-        duration: 3000,
-      });
-    setTasks((prevTasks) => [
-      ...prevTasks,
+    // if (!value)
+    //   return toast.error("De um nome para sua tarefa", {
+    //     duration: 3000,
+    //   });
+    // setTasks((prevTasks) => [
+    //   ...prevTasks,
+    //   {
+    //     id: Math.max(...prevTasks.map((task) => task.id), 0) + 1,
+    //     title: value,
+    //   },
+    // ]);
+    // setValue("");
+    // toast.success("Tarefa criada com sucesso", {
+    //   action: {
+    //     label: "Desfazer",
+    //     onClick: () => setTasks((prevTasks) => prevTasks.slice(0, -1)),
+    //   },
+    // });
+
+    if (!value) return toast.error("De um nome para sua tarefa");
+    setTasks([
+      ...tasks,
       {
-        id: Math.max(...prevTasks.map((task) => task.id), 0) + 1,
+        id: Math.max(...tasks.map((task) => task.id), 0) + 1,
         title: value,
       },
     ]);
+    console.log(tasks);
     setValue("");
     toast.success("Tarefa criada com sucesso", {
       action: {
@@ -64,7 +82,7 @@ export default function Home() {
       },
     });
   };
-
+  console.log(tasks);
   return (
     <main>
       <section className="my-4">
